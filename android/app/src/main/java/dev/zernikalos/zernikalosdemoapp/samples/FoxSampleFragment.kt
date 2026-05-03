@@ -15,7 +15,7 @@ import zernikalos.action.ZActionPlayer
 import zernikalos.components.light.ZDirectionalLamp
 import zernikalos.context.ZContext
 import zernikalos.loader.ZKo
-import zernikalos.loader.loadFromProto
+import zernikalos.loader.loadFromAssets
 import zernikalos.logger.ZLogLevel
 import zernikalos.action.ZSkeletalAction
 import zernikalos.objects.ZCamera
@@ -64,9 +64,7 @@ class FoxSampleFragment : Fragment() {
                 viewLifecycleOwner.lifecycleScope.launch {
                     val loaded: ZKo = runCatching {
                         withContext(Dispatchers.IO) {
-                            val bytes =
-                                requireContext().assets.open("gltf/Fox.zko").use { it.readBytes() }
-                            loadFromProto(bytes)
+                            loadFromAssets(requireContext(), "gltf/Fox.zko")
                         }
                     }.getOrElse { e ->
                         withContext(Dispatchers.Main) {
@@ -116,8 +114,8 @@ class FoxSampleFragment : Fragment() {
             }
 
             override fun onUpdate(context: ZContext, done: () -> Unit) {
-                // Advance any playing skeletal clip by engine time delta.
                 actionPlayer.update()
+                actionPlayer.applyCurrentPose()
                 done()
             }
 
@@ -138,10 +136,10 @@ class FoxSampleFragment : Fragment() {
         root.transform.rotate(degrees, 0f, 1f, 0f)
     }
 
-    /** Stops the current clip, assigns [action] on [model], then starts playback (spinner + initial pose). */
+    /** Stops the current clip, binds [action] to [model]'s skeleton, then starts playback. */
     private fun playSkeletalClip(model: ZModel, action: ZSkeletalAction) {
         actionPlayer.stop()
-        actionPlayer.setAction(model, action)
+        actionPlayer.setAction(model.skeleton!!, action)
         actionPlayer.play(true)
     }
 

@@ -15,7 +15,7 @@ import zernikalos.action.ZActionPlayer
 import zernikalos.action.ZSkeletalAction
 import zernikalos.context.ZContext
 import zernikalos.loader.ZKo
-import zernikalos.loader.loadFromProto
+import zernikalos.loader.loadFromAssets
 import zernikalos.logger.ZLogLevel
 import zernikalos.objects.ZCamera
 import zernikalos.objects.ZModel
@@ -61,10 +61,10 @@ class StormtrooperSampleFragment : Fragment() {
                 viewLifecycleOwner.lifecycleScope.launch {
                     val loaded: ZKo = runCatching {
                         withContext(Dispatchers.IO) {
-                            val bytes = requireContext().assets
-                                .open("collada/stormtrooper/stormtrooper.zko")
-                                .use { it.readBytes() }
-                            loadFromProto(bytes)
+                            loadFromAssets(
+                                requireContext(),
+                                "collada/stormtrooper/stormtrooper.zko",
+                            )
                         }
                     }.getOrElse { e ->
                         withContext(Dispatchers.Main) {
@@ -109,6 +109,7 @@ class StormtrooperSampleFragment : Fragment() {
 
             override fun onUpdate(context: ZContext, done: () -> Unit) {
                 actionPlayer.update()
+                actionPlayer.applyCurrentPose()
                 done()
             }
 
@@ -129,10 +130,10 @@ class StormtrooperSampleFragment : Fragment() {
         root.transform.rotate(degrees, 0f, 0f, 1f)
     }
 
-    /** Stops the current clip, assigns [action] on [model], then starts playback (spinner + initial pose). */
+    /** Stops the current clip, binds [action] to [model]'s skeleton, then starts playback. */
     private fun playSkeletalClip(model: ZModel, action: ZSkeletalAction) {
         actionPlayer.stop()
-        actionPlayer.setAction(model, action)
+        actionPlayer.setAction(model.skeleton!!, action)
         actionPlayer.play(true)
     }
 

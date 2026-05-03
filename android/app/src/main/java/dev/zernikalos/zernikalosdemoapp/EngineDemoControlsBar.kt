@@ -117,7 +117,7 @@ class EngineDemoControlsBar @JvmOverloads constructor(
     /**
      * Populates the action spinner. On each selection, invokes [onSkeletalActionSelected] with the
      * skinned [ZModel] and chosen [ZSkeletalAction]. The host should run its usual clip switch
-     * sequence (stop current clip, setAction, play). Hides the spinner when there is no skinned
+     * sequence (stop current clip, setAction on the model’s skeleton, play). Hides the spinner when there is no skinned
      * target or no actions; rotate buttons stay usable.
      */
     fun bindSkeletalActions(
