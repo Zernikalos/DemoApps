@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ImageButton
+        android:id="@+id/btn_rotate_neg"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:contentDescription="@string/rotate_left"
+        android:src="@android:drawable/ic_media_previous" />
+
+    <Spinner
+        android:id="@+id/spinner_actions"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_weight="1" />
+
+    <ImageButton
+        android:id="@+id/btn_rotate_pos"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:contentDescription="@string/rotate_right"
+        android:src="@android:drawable/ic_media_next" />
+</merge>

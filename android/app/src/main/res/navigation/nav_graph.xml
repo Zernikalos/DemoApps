@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/sample_picker">
+
+    <fragment
+        android:id="@+id/sample_picker"
+        android:name="dev.zernikalos.zernikalosdemoapp.SamplePickerFragment"
+        android:label="@string/sample_picker_title"
+        tools:layout="@layout/fragment_sample_picker">
+
+        <action
+            android:id="@+id/action_sample_picker_to_fox"
+            app:destination="@id/nav_fox" />
+
+        <action
+            android:id="@+id/action_sample_picker_to_soldier"
+            app:destination="@id/nav_soldier" />
+
+        <action
+            android:id="@+id/action_sample_picker_to_stormtrooper"
+            app:destination="@id/nav_stormtrooper" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_fox"
+        android:name="dev.zernikalos.zernikalosdemoapp.samples.FoxSampleFragment"
+        android:label="@string/nav_fox"
+        tools:layout="@layout/fragment_sample" />
+
+    <fragment
+        android:id="@+id/nav_soldier"
+        android:name="dev.zernikalos.zernikalosdemoapp.samples.SoldierSampleFragment"
+        android:label="@string/nav_soldier"
+        tools:layout="@layout/fragment_sample" />
+
+    <fragment
+        android:id="@+id/nav_stormtrooper"
+        android:name="dev.zernikalos.zernikalosdemoapp.samples.StormtrooperSampleFragment"
+        android:label="@string/nav_stormtrooper"
+        tools:layout="@layout/fragment_sample" />
+</navigation>
