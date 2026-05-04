@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">ZernikalosDemoApp</string>
+    <string name="sample_picker_title">Zernikalos Samples</string>
+    <string name="nav_fox">Fox</string>
+    <string name="nav_soldier">Soldier</string>
+    <string name="nav_stormtrooper">Stormtrooper</string>
+    <string name="rotate_left">Rotate left</string>
+    <string name="rotate_right">Rotate right</string>
+    <string name="zko_load_failed">Could not load ZKO: %1$s</string>
+</resources>
