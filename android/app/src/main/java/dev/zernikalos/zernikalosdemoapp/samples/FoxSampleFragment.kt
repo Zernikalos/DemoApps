@@ -14,9 +14,11 @@ import zernikalos.Zernikalos
 import zernikalos.action.ZActionPlayer
 import zernikalos.components.light.ZDirectionalLamp
 import zernikalos.context.ZContext
+import zernikalos.events.touch.ZTouchEventType
 import zernikalos.loader.ZKo
 import zernikalos.loader.loadFromAssets
 import zernikalos.logger.ZLogLevel
+import zernikalos.math.ZVector3
 import zernikalos.action.ZSkeletalAction
 import zernikalos.objects.ZCamera
 import zernikalos.objects.ZLight
@@ -91,6 +93,15 @@ class FoxSampleFragment : Fragment() {
                         scene.addChild(ambientLight)
                         scene.addChild(light)
                         scene.addChild(camera)
+                        val dragAxis = ZVector3.Right
+                        val degreesPerPixel = 0.35f
+                        root.events.addTouchListener { obj, event ->
+                            if (event.pointerId != 0) return@addTouchListener
+                            if (event.type != ZTouchEventType.MOVE) return@addTouchListener
+
+                            val delta = event.deltaX * degreesPerPixel
+                            obj.transform.rotate(delta, dragAxis)
+                        }
                         context.activeCamera = camera
                         context.scene = scene
 
