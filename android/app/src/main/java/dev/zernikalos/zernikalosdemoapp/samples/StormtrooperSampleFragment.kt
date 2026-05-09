@@ -104,8 +104,9 @@ class StormtrooperSampleFragment : Fragment() {
                         val mainObj = findFirstModel(scene)
 
                         // --- Push camera back and roll the mesh so the default view matches the asset orientation. ---
-                        context.activeCamera?.transform?.translate(0f, 0f, -10f)
-                        mainObj?.transform?.rotate(90f, 0f, 0f, 1f)
+                        context.activeCamera?.transform?.rotate(180f, 0f, 0f, 1f)
+                        context.activeCamera?.transform?.rotate(180f, 0f, 1f, 0f)
+                        context.activeCamera?.transform?.translate(1f, 1f, -10f)
 
                         val actions = loaded.actions.orEmpty()
                         demoControls.bindSkeletalActions(mainObj, actions, ::playSkeletalClip)

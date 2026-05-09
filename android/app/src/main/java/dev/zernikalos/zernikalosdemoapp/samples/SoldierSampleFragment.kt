@@ -100,8 +100,8 @@ class SoldierSampleFragment : Fragment() {
                         val mainObj = findFirstModel(scene)
 
                         // --- Camera pose tuned for this asset (eye height and distance along -Z). ---
-                        context.activeCamera?.transform?.rotate(180f, 1f, 0f, 0f)
-                        context.activeCamera?.transform?.translate(0f, -1f, -3f)
+                        context.activeCamera?.transform?.rotate(180f, 0f, 1f, 0f);
+                        context.activeCamera?.transform?.setPosition(0f, -1f, -3f)
 
                         val actions = loaded.actions.orEmpty()
                         demoControls.bindSkeletalActions(mainObj, actions, ::playSkeletalClip)
