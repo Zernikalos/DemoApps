@@ -93,25 +93,44 @@ class FoxSampleFragment : Fragment() {
                         scene.addChild(ambientLight)
                         scene.addChild(light)
                         scene.addChild(camera)
-                        val dragAxis = ZVector3.Right
-                        val degreesPerPixel = 0.35f
+                        // Tuned for touch deltas expressed in pixels.
+                        val degreesPerPixel = 0.15f
+                        val worldUp = ZVector3.Up
+                        val center = ZVector3.Zero
+
                         root.events.addTouchListener { obj, event ->
                             if (event.pointerId != 0) return@addTouchListener
                             if (event.type != ZTouchEventType.MOVE) return@addTouchListener
 
-                            val delta = event.deltaX * degreesPerPixel
-                            obj.transform.rotate(delta, dragAxis)
+                            val camTransform = context.activeCamera?.transform ?: return@addTouchListener
+
+                            // Simple 3D viewer orbit: move camera position around world origin.
+                            // Clamp occasional spikes (can happen with event batching / history).
+                            val clampedDx = event.deltaX.coerceIn(-80f, 80f)
+                            val clampedDy = event.deltaY.coerceIn(-80f, 80f)
+
+                            val yaw = clampedDx * degreesPerPixel
+                            val pitch = clampedDy * degreesPerPixel
+
+                            // 1) Yaw around fixed world Up.
+                            //camTransform.rotateAroundWorld(yaw, center, worldUp)
+
+                            // 2) Pitch around camera right (world-space direction).
+                            // Note: right is already a world direction; we use it as a world axis.
+                            val rightAxis = ZVector3()
+                            //rightAxis.copy(camTransform.right)
+                            //camTransform.rotateAroundWorld(pitch, center, rightAxis)
+
+                            // Keep camera oriented toward center.
+                            //camTransform.lookAt(center, worldUp)
                         }
                         context.activeCamera = camera
                         context.scene = scene
 
                         // --- Framing: pick the first skinned mesh, scale it, then aim the camera. ---
                         val mainObj = findFirstModel(scene)
-                        context.activeCamera?.transform?.rotate(180f, 1f, 0f, 0f)
-                        context.activeCamera?.transform?.rotate(180f, 0f, 1f, 0f)
                         mainObj?.transform?.scale(0.1f)
-                        context.activeCamera?.transform?.translate(-1f, -7f, -40f)
-                        context.activeCamera?.transform?.rotate(-45f, 0f, 1f, 0f)
+                        context.activeCamera?.transform?.translate(1f, -5f, -30f)
 
                         val actions = loaded.actions.orEmpty()
                         demoControls.bindSkeletalActions(mainObj, actions, ::playSkeletalClip)
