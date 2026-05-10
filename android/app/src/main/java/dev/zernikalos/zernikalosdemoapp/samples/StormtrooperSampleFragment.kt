@@ -28,6 +28,8 @@ import zernikalos.search.findFirstModel
 import zernikalos.ui.ZernikalosView
 import dev.zernikalos.zernikalosdemoapp.EngineDemoControlsBar
 import dev.zernikalos.zernikalosdemoapp.R
+import zernikalos.components.light.ZDirectionalLamp
+import zernikalos.objects.ZLight
 
 /**
  * Standalone demo: loads the Stormtrooper asset from the Collada-derived path, builds a minimal
@@ -87,9 +89,14 @@ class StormtrooperSampleFragment : Fragment() {
                         val root = loaded.root
                         val scene = ZScene()
                         val camera = ZCamera()
+                        val ambientLight = ZLight.createAmbientLight().apply { intensity = 1f }
+                        val light = ZLight().apply { lamp = ZDirectionalLamp() }
+
                         scene.addChild(root)
                         scene.addChild(camera)
-                        val dragAxis = ZVector3.Up
+                        scene.addChild(ambientLight)
+                        scene.addChild(light)
+                        val dragAxis = ZVector3.Forward
                         val degreesPerPixel = 0.35f
                         root.events.addTouchListener { obj, event ->
                             if (event.pointerId != 0) return@addTouchListener
