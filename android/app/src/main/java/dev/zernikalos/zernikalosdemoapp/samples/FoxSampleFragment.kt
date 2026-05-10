@@ -162,7 +162,7 @@ class FoxSampleFragment : Fragment() {
 
     private fun rotateRootY(degrees: Float) {
         val root = loadedRoot ?: return
-        root.transform.rotate(degrees, 0f, 1f, 0f)
+        root.transform.rotateDegrees(degrees, 0f, 1f, 0f)
     }
 
     /** Stops the current clip, binds [action] to [model]'s skeleton, then starts playback. */

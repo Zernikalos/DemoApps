@@ -92,7 +92,7 @@ class SoldierSampleFragment : Fragment() {
                             if (event.type != ZTouchEventType.MOVE) return@addTouchListener
 
                             val delta = event.deltaX * degreesPerPixel
-                            obj.transform.rotate(delta, dragAxis)
+                            obj.transform.rotateDegrees(delta, dragAxis)
                         }
                         context.activeCamera = camera
                         context.scene = scene
@@ -100,7 +100,7 @@ class SoldierSampleFragment : Fragment() {
                         val mainObj = findFirstModel(scene)
 
                         // --- Camera pose tuned for this asset (eye height and distance along -Z). ---
-                        context.activeCamera?.transform?.rotate(180f, 0f, 1f, 0f);
+                        context.activeCamera?.transform?.rotateDegrees(180f, 0f, 1f, 0f)
                         context.activeCamera?.transform?.setPosition(0f, -1f, -3f)
 
                         val actions = loaded.actions.orEmpty()
@@ -132,7 +132,7 @@ class SoldierSampleFragment : Fragment() {
 
     private fun rotateRootY(degrees: Float) {
         val root = loadedRoot ?: return
-        root.transform.rotate(degrees, 0f, 1f, 0f)
+        root.transform.rotateDegrees(degrees, 0f, 1f, 0f)
     }
 
     /** Stops the current clip, binds [action] to [model]'s skeleton, then starts playback. */
