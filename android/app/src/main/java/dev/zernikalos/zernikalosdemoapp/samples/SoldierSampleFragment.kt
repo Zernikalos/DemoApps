@@ -116,7 +116,6 @@ class SoldierSampleFragment : Fragment() {
 
             override fun onUpdate(context: ZContext, done: () -> Unit) {
                 actionPlayer.update()
-                actionPlayer.applyCurrentPose()
                 done()
             }
 
