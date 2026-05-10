@@ -72,7 +72,6 @@
       },
       onUpdate(ctx, done) {
         player.update();
-        player.applyCurrentPose();
         if (root && ctx.input.keyboard.isKeyPressed(zernikalos.events.keyboard.ZKeyCode.LeftArrow)) {
           root.transform.rotate(-2, 0, 1, 0);
         }
