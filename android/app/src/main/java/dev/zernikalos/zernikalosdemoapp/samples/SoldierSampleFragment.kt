@@ -28,6 +28,7 @@ import zernikalos.search.findFirstModel
 import zernikalos.ui.ZernikalosView
 import dev.zernikalos.zernikalosdemoapp.EngineDemoControlsBar
 import dev.zernikalos.zernikalosdemoapp.R
+import zernikalos.objects.ZCamera
 
 /**
  * Standalone demo: loads the Soldier model, uses the engine default scene (includes a camera),
@@ -85,7 +86,7 @@ class SoldierSampleFragment : Fragment() {
                         val scene = ZScene.defaultScene()
                         val camera = findFirstCamera(scene)!!
                         scene.addChild(root)
-                        val dragAxis = ZVector3.Right
+                        val dragAxis = ZVector3.Up
                         val degreesPerPixel = 0.35f
                         root.events.addTouchListener { obj, event ->
                             if (event.pointerId != 0) return@addTouchListener
