@@ -96,7 +96,7 @@ class StormtrooperSampleFragment : Fragment() {
                             if (event.type != ZTouchEventType.MOVE) return@addTouchListener
 
                             val delta = event.deltaX * degreesPerPixel
-                            obj.transform.rotate(delta, dragAxis)
+                            obj.transform.rotateDegrees(delta, dragAxis)
                         }
                         context.activeCamera = camera
                         context.scene = scene
@@ -104,8 +104,8 @@ class StormtrooperSampleFragment : Fragment() {
                         val mainObj = findFirstModel(scene)
 
                         // --- Push camera back and roll the mesh so the default view matches the asset orientation. ---
-                        context.activeCamera?.transform?.rotate(180f, 0f, 0f, 1f)
-                        context.activeCamera?.transform?.rotate(180f, 0f, 1f, 0f)
+                        context.activeCamera?.transform?.rotateDegrees(180f, 0f, 0f, 1f)
+                        context.activeCamera?.transform?.rotateDegrees(180f, 0f, 1f, 0f)
                         context.activeCamera?.transform?.translate(1f, 1f, -10f)
 
                         val actions = loaded.actions.orEmpty()
@@ -138,7 +138,7 @@ class StormtrooperSampleFragment : Fragment() {
 
     private fun rotateRootZ(degrees: Float) {
         val root = loadedRoot ?: return
-        root.transform.rotate(degrees, 0f, 0f, 1f)
+        root.transform.rotateDegrees(degrees, 0f, 0f, 1f)
     }
 
     /** Stops the current clip, binds [action] to [model]'s skeleton, then starts playback. */
