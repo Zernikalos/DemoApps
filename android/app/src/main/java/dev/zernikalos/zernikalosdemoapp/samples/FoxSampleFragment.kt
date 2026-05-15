@@ -113,16 +113,16 @@ class FoxSampleFragment : Fragment() {
                             val pitch = clampedDy * degreesPerPixel
 
                             // 1) Yaw around fixed world Up.
-                            //camTransform.rotateAroundWorld(yaw, center, worldUp)
+                            camTransform.rotateAroundWorldDegrees(yaw, center, worldUp)
 
                             // 2) Pitch around camera right (world-space direction).
                             // Note: right is already a world direction; we use it as a world axis.
-                            val rightAxis = ZVector3()
+                            val rightAxis = ZVector3.Right
                             //rightAxis.copy(camTransform.right)
-                            //camTransform.rotateAroundWorld(pitch, center, rightAxis)
+                            camTransform.rotateAroundWorldDegrees(pitch, center, rightAxis)
 
                             // Keep camera oriented toward center.
-                            //camTransform.lookAt(center, worldUp)
+                            camTransform.lookAt(center, worldUp)
                         }
                         context.activeCamera = camera
                         context.scene = scene

@@ -22,6 +22,10 @@
         <action
             android:id="@+id/action_sample_picker_to_stormtrooper"
             app:destination="@id/nav_stormtrooper" />
+
+        <action
+            android:id="@+id/action_sample_picker_to_basic_geometry"
+            app:destination="@id/nav_basic_geometry" />
     </fragment>
 
     <fragment
@@ -41,4 +45,10 @@
         android:name="dev.zernikalos.zernikalosdemoapp.samples.StormtrooperSampleFragment"
         android:label="@string/nav_stormtrooper"
         tools:layout="@layout/fragment_sample" />
+
+    <fragment
+        android:id="@+id/nav_basic_geometry"
+        android:name="dev.zernikalos.zernikalosdemoapp.samples.BasicGeometryFragment"
+        android:label="@string/nav_basic_geometry"
+        tools:layout="@layout/fragment_basic_geometry" />
 </navigation>

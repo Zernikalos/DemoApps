@@ -32,5 +32,8 @@ class SamplePickerFragment : Fragment() {
         view.findViewById<MaterialButton>(R.id.btn_open_stormtrooper).setOnClickListener {
             findNavController().navigate(R.id.action_sample_picker_to_stormtrooper)
         }
+        view.findViewById<MaterialButton>(R.id.btn_open_basic_geometry).setOnClickListener {
+            findNavController().navigate(R.id.action_sample_picker_to_basic_geometry)
+        }
     }
 }

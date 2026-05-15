@@ -4,6 +4,7 @@
     <string name="nav_fox">Fox</string>
     <string name="nav_soldier">Soldier</string>
     <string name="nav_stormtrooper">Stormtrooper</string>
+    <string name="nav_basic_geometry">Basic geometry</string>
     <string name="rotate_left">Rotate left</string>
     <string name="rotate_right">Rotate right</string>
     <string name="zko_load_failed">Could not load ZKO: %1$s</string>
