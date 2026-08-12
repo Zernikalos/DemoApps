@@ -1,6 +1,6 @@
+#!/usr/bin/env node
 import { spawnSync } from "node:child_process";
-import { existsSync, mkdirSync } from "node:fs";
-import { readdirSync, statSync } from "node:fs";
+import { existsSync, mkdirSync, readdirSync } from "node:fs";
 import path from "node:path";
 
 const repoRoot = path.resolve(import.meta.dirname, ".."); // DemoApps
@@ -45,7 +45,7 @@ function detectInputFormat(filePath) {
 function getZkcliCommand() {
   // ZKCLI_MODE:
   // - "local": run from ../ZKBuilder/packages/zkbuilder-cli/bin/zkcli (default if exists)
-  // - "dlx": run via "pnpm dlx @zernikalos/zkbuilder-cli zkcli"
+  // - "dlx": run via "pnpm dlx @zernikalos/zkbuilder-cli" (bin is already zkcli)
   const mode = (process.env.ZKCLI_MODE ?? "").toLowerCase();
   const localZkcli = path.resolve(
     repoRoot,
@@ -61,18 +61,12 @@ function getZkcliCommand() {
     return { cmd: localZkcli, argsPrefix: [] };
   }
 
-  return { cmd: "pnpm", argsPrefix: ["dlx", "@zernikalos/zkbuilder-cli", "zkcli"] };
+  // pnpm dlx already invokes the package bin (zkcli); do not pass "zkcli" again.
+  return { cmd: "pnpm", argsPrefix: ["dlx", "@zernikalos/zkbuilder-cli"] };
 }
 
 function ensureDir(filePath) {
   mkdirSync(path.dirname(filePath), { recursive: true });
-}
-
-function shouldRebuild(inputPath, outputPath) {
-  if (!existsSync(outputPath)) return true;
-  const inStat = statSync(inputPath);
-  const outStat = statSync(outputPath);
-  return inStat.mtimeMs > outStat.mtimeMs;
 }
 
 function main() {
@@ -93,16 +87,10 @@ function main() {
   }
 
   let converted = 0;
-  let skipped = 0;
 
   for (const input of inputs) {
     const rel = path.relative(rawRoot, input);
     const output = path.join(outRoot, rel).replace(/\.[^.]+$/, ".zko");
-
-    if (!shouldRebuild(input, output)) {
-      skipped += 1;
-      continue;
-    }
 
     ensureDir(output);
 
@@ -127,7 +115,7 @@ function main() {
     converted += 1;
   }
 
-  console.log(`Done. Converted: ${converted}, skipped (up-to-date): ${skipped}`);
+  console.log(`Done. Converted: ${converted}`);
   console.log(`Output folder: ${outRoot}`);
   console.log(
     `Tip: set ZKCLI_MODE=dlx to verify the published CLI (requires pnpm + registry access).`,

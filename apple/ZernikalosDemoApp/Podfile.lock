@@ -1,0 +1,16 @@
+PODS:
+  - Zernikalos (0.10.0)
+
+DEPENDENCIES:
+  - Zernikalos (from `../../../Zernikalos/engine/Zernikalos.podspec`)
+
+EXTERNAL SOURCES:
+  Zernikalos:
+    :path: "../../../Zernikalos/engine/Zernikalos.podspec"
+
+SPEC CHECKSUMS:
+  Zernikalos: 8434b4481c985a22041cf47d6683aa7d8df54338
+
+PODFILE CHECKSUM: ed502509085ec343c7ef75eca28395b75c64f436
+
+COCOAPODS: 1.16.2

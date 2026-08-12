@@ -1,6 +1,6 @@
 # ZKO assets (shared)
 
-Place binary `.zko` files here so **Android** (via `android/app` `assets.srcDir`) and **web demos** (`web/examples/*.html` → `../../assets/zko/...`) use the **same** files.
+Place binary `.zko` files here so **Android** (via `android/app` `assets.srcDir`), **web demos** (`web/examples/*.html` → `../../assets/zko/...`), and **iOS** (`apple/ZernikalosDemoApp` folder reference) use the **same** files.
 
 Expected layout (matches demo URLs):
 
