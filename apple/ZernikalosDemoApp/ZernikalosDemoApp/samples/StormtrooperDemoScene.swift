@@ -35,7 +35,7 @@ final class StormtrooperDemoSceneHandler: ZSceneStateHandler {
         let mainObj = ZFinderKt.findFirstModel(root: scene)
         context.activeCamera?.transform.rotateDegrees(angle: 180, x: 0, y: 0, z: 1)
         context.activeCamera?.transform.rotateDegrees(angle: 180, x: 0, y: 1, z: 0)
-        context.activeCamera?.transform.translate(x: 1, y: 1, z: -10)
+        context.activeCamera?.transform.translate(x: 1, y: -1, z: -10)
 
         let actions = loaded.actions ?? []
         viewModel.bindSkeletalActions(model: mainObj, actions: actions)

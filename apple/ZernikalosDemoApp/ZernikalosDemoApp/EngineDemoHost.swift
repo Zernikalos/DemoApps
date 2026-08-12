@@ -33,6 +33,9 @@ struct EngineDemoHost: View {
                 stateHandler = DemoStateHandlerBox(handler: makeHandler(viewModel))
             }
         }
+        .onDisappear {
+            engine = nil
+        }
         .alert("Failed to load model", isPresented: Binding(
             get: { viewModel.loadError != nil },
             set: { if !$0 { viewModel.loadError = nil } }

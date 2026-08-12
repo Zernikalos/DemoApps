@@ -39,6 +39,8 @@ struct ZernikalosMTKView: UIViewRepresentable {
     func updateUIView(_ uiView: MTKView, context: Context) {}
 
     static func dismantleUIView(_ uiView: MTKView, coordinator: Coordinator) {
+        uiView.isPaused = true
+        uiView.delegate = nil
         coordinator.engine?.dispose()
         coordinator.engine = nil
     }

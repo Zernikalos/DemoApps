@@ -30,6 +30,7 @@ import dev.zernikalos.zernikalosdemoapp.EngineDemoControlsBar
 import dev.zernikalos.zernikalosdemoapp.R
 import zernikalos.components.light.ZDirectionalLamp
 import zernikalos.objects.ZLight
+import zernikalos.search.findFirstCamera
 
 /**
  * Standalone demo: loads the Stormtrooper asset from the Collada-derived path, builds a minimal
@@ -87,14 +88,12 @@ class StormtrooperSampleFragment : Fragment() {
 
                         // --- Minimal scene: no bundled lights here; only mesh hierarchy plus a fresh camera. ---
                         val root = loaded.root
-                        val scene = ZScene()
-                        val camera = ZCamera()
-                        val ambientLight = ZLight.createAmbientLight().apply { intensity = 1f }
+                        val scene = ZScene.defaultScene()
                         val light = ZLight().apply { lamp = ZDirectionalLamp() }
 
+                        val camera = findFirstCamera(scene)!!
+
                         scene.addChild(root)
-                        scene.addChild(camera)
-                        scene.addChild(ambientLight)
                         scene.addChild(light)
                         val dragAxis = ZVector3.Forward
                         val degreesPerPixel = 0.35f
@@ -113,7 +112,7 @@ class StormtrooperSampleFragment : Fragment() {
                         // --- Push camera back and roll the mesh so the default view matches the asset orientation. ---
                         context.activeCamera?.transform?.rotateDegrees(180f, 0f, 0f, 1f)
                         context.activeCamera?.transform?.rotateDegrees(180f, 0f, 1f, 0f)
-                        context.activeCamera?.transform?.translate(1f, 1f, -10f)
+                        context.activeCamera?.transform?.translate(0f, 0f, -5f)
 
                         val actions = loaded.actions.orEmpty()
                         demoControls.bindSkeletalActions(mainObj, actions, ::playSkeletalClip)
